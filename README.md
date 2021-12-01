@@ -2,8 +2,7 @@
 
 The Cyclic Photoisomerization Model (CPM) is a simulation model for fully atomisitc MD simulations that implements the effects of UV--Vis light on azobenzene-containing systems. The CPM is inspired by a simulation approach by Bedrov et al. [1], which has been first implemented and then further extended/improved.
 
-
-
+![cyclic_illustration_final2_italic4_PAPER_CPM-B](https://user-images.githubusercontent.com/47243285/144288572-d8c4d410-fa90-4fe7-b545-2b1e5995e9a9.png)
 
 ## Requirements
 
