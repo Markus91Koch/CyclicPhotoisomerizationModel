@@ -1,0 +1,754 @@
+##### LOOP OVER MEAS STEPS
+label           loop2
+variable        m loop 1 LOOPNUMBER
+
+clear
+
+units           real
+dimension       3
+atom_style      full
+boundary        p p p                           # periodic box
+kspace_style	pppm 1.0e-4
+
+special_bonds     lj/coul 0.0 0.0 1.0 dihedral yes              # identical to special_bonds dreiding
+
+pair_style         hybrid/overlay hbond/dreiding/lj 4 9.5 11.5 90 lj/cut/coul/long 9.8 9.8
+
+bond_style        harmonic
+angle_style       harmonic
+dihedral_style    harmonic
+improper_style    umbrella
+
+read_data	FILENAME
+
+reset_timestep  0
+
+pair_coeff   3 4  hbond/dreiding/lj 8 j 7.0 2.75 4 9.0 11.0 90
+
+pair_coeff  1 1     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 2     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 3     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  1 4     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  1 5     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  1 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  1 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  1 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  1 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  2 2     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  2 3     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  2 4     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  2 5     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  2 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  2 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  2 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  2 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  2 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  3 3     lj/cut/coul/long   0.0957 3.03315 9.8
+pair_coeff  3 4     lj/cut/coul/long   0.086065 3.14786 9.8
+pair_coeff  3 5     lj/cut/coul/long   0.086065 3.14786 9.8
+pair_coeff  3 6     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  3 7     lj/cut/coul/long   0.0381397 2.93979 9.8
+pair_coeff  3 8     lj/cut/coul/long   0.00309354 2.93979 9.8
+pair_coeff  3 9     lj/cut/coul/long   0 1.51658 9.8
+pair_coeff  3 10    lj/cut/coul/long    0.12193 3.09958 9.8
+pair_coeff  4 4     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  4 5     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  4 6     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  4 7     lj/cut/coul/long   0.0342999 3.05449 9.8
+pair_coeff  4 8     lj/cut/coul/long   0.00278209 3.05449 9.8
+pair_coeff  4 9     lj/cut/coul/long   0 1.63128 9.8
+pair_coeff  4 10    lj/cut/coul/long    0.109654 3.21428 9.8
+pair_coeff  5 5     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  5 6     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  5 7     lj/cut/coul/long   0.0342999 3.05449 9.8
+pair_coeff  5 8     lj/cut/coul/long   0.00278209 3.05449 9.8
+pair_coeff  5 9     lj/cut/coul/long   0 1.63128 9.8
+pair_coeff  5 10    lj/cut/coul/long    0.109654 3.21428 9.8
+pair_coeff  6 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  6 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  6 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  6 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  6 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  7 7     lj/cut/coul/long   0.0152 2.84642 9.8
+pair_coeff  7 8     lj/cut/coul/long   0.00123288 2.84642 9.8
+pair_coeff  7 9     lj/cut/coul/long   0 1.42321 9.8
+pair_coeff  7 10    lj/cut/coul/long    0.0485934 3.00621 9.8
+pair_coeff  8 8     lj/cut/coul/long   0.0001 2.84642 9.8
+pair_coeff  8 9     lj/cut/coul/long   0 1.42321 9.8
+pair_coeff  8 10    lj/cut/coul/long    0.00394145 3.00621 9.8
+pair_coeff  9 9     lj/cut/coul/long   0 0 9.8
+pair_coeff  9 10    lj/cut/coul/long    0 0 9.8
+pair_coeff  10 10   lj/cut/coul/long   0.15535 3.166 9.8
+
+neigh_modify    one 5000
+
+timestep        1.0                             # fs
+
+group		trimer type 1 2 3 4 5 6 7 8
+group		water  type 9 10
+
+group           c13 id 13:7195:114
+group           n16 id 16:7198:114
+group           n17 id 17:7199:114
+group           c18 id 18:7200:114
+
+group           c86 id 86:7268:114
+group           n89 id 89:7271:114
+group           n90 id 90:7272:114
+group           c91 id 91:7273:114
+
+group           c51 id 51:7233:114
+group           n54 id 54:7236:114
+group           n55 id 55:7237:114
+group           c56 id 56:7238:114
+
+#group           pre_azo1 union c13 n16 n17 c18
+#group           pre_azo2 union c86 n89 n90 c91
+#group           pre_azo3 union c51 n54 n55 c56
+group           pre_azo union c13 n16 n17 c18 c86 n89 n90 c91 c51 n54 n55 c56
+
+#group           azo1 intersect pre_azo1 trimer
+#group           azo2 intersect pre_azo2 trimer
+#group           azo3 intersect pre_azo3 trimer
+group           azo intersect pre_azo trimer
+
+compute         az_phi azo dihedral/local phi
+compute         az_typ azo property/local dtype
+compute         az_ids azo property/local datom1 datom2 datom3 datom4
+#dump            az azo1 local 1 azo.txt c_az_phi c_az_typ c_az_ids[*]
+dump            az azo local 1 azodih_raw.txt c_az_typ c_az_phi c_az_ids[*]
+dump_modify     az sort 3 
+
+compute hb all pair hbond/dreiding/lj
+
+variable n_hbond equal c_hb[1] #number hbond
+variable E_hbond equal c_hb[2] #hbond energy
+
+#dump            1 all dcd 500 all.dcd           # output dcd-film with unwrapped coords
+#dump_modify     1 unwrap yes
+
+#dump            2 trimer dcd 250 trimer.dcd           # output dcd-film with unwrapped coords
+#dump_modify     2 unwrap yes
+
+fix             1 all shake 0.0001 20 0 b 2 7 11 12 a 17
+
+#fix             2 all nvt temp 300.0 300.0 100.0
+fix             2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
+
+thermo 		1000
+thermo_style custom step temp press density etotal epair v_n_hbond v_E_hbond
+
+run             0
+
+#shell           tail -1 size_raw.txt >> size.txt
+#shell           tail -1 rg_raw.txt >> rg.txt
+#shell           rm size_raw.txt rg_raw.txt
+
+shell           sh extract_azo.sh
+undump          az #dddpairs
+
+## do replacement for trans->cis switch directly at the beginning
+shell           sh dihedrals_tc.sh FILENAME
+
+clear
+
+## PERFORM TRANS TO CIS SWITCHING RUN
+
+units           real
+dimension       3
+atom_style      full
+boundary        p p p                           # periodic box
+kspace_style    pppm 1.0e-4
+
+special_bonds     lj/coul 0.0 0.0 1.0 dihedral yes              # identical to special_bonds dreiding
+
+pair_style         hybrid/overlay hbond/dreiding/lj 4 9.5 11.5 90 lj/cut/coul/long 9.8 9.8
+
+bond_style        harmonic
+angle_style       harmonic
+dihedral_style    harmonic
+improper_style    umbrella
+
+read_data       INNAMETC
+
+reset_timestep  0
+
+pair_coeff   3 4  hbond/dreiding/lj 8 j 7.0 2.75 4 9.0 11.0 90
+
+pair_coeff  1 1     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 2     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 3     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  1 4     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  1 5     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  1 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  1 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  1 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  1 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  2 2     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  2 3     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  2 4     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  2 5     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  2 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  2 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  2 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  2 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  2 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  3 3     lj/cut/coul/long   0.0957 3.03315 9.8
+pair_coeff  3 4     lj/cut/coul/long   0.086065 3.14786 9.8
+pair_coeff  3 5     lj/cut/coul/long   0.086065 3.14786 9.8
+pair_coeff  3 6     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  3 7     lj/cut/coul/long   0.0381397 2.93979 9.8
+pair_coeff  3 8     lj/cut/coul/long   0.00309354 2.93979 9.8
+pair_coeff  3 9     lj/cut/coul/long   0 1.51658 9.8
+pair_coeff  3 10    lj/cut/coul/long    0.12193 3.09958 9.8
+pair_coeff  4 4     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  4 5     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  4 6     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  4 7     lj/cut/coul/long   0.0342999 3.05449 9.8
+pair_coeff  4 8     lj/cut/coul/long   0.00278209 3.05449 9.8
+pair_coeff  4 9     lj/cut/coul/long   0 1.63128 9.8
+pair_coeff  4 10    lj/cut/coul/long    0.109654 3.21428 9.8
+pair_coeff  5 5     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  5 6     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  5 7     lj/cut/coul/long   0.0342999 3.05449 9.8
+pair_coeff  5 8     lj/cut/coul/long   0.00278209 3.05449 9.8
+pair_coeff  5 9     lj/cut/coul/long   0 1.63128 9.8
+pair_coeff  5 10    lj/cut/coul/long    0.109654 3.21428 9.8
+pair_coeff  6 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  6 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  6 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  6 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  6 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  7 7     lj/cut/coul/long   0.0152 2.84642 9.8
+pair_coeff  7 8     lj/cut/coul/long   0.00123288 2.84642 9.8
+pair_coeff  7 9     lj/cut/coul/long   0 1.42321 9.8
+pair_coeff  7 10    lj/cut/coul/long    0.0485934 3.00621 9.8
+pair_coeff  8 8     lj/cut/coul/long   0.0001 2.84642 9.8
+pair_coeff  8 9     lj/cut/coul/long   0 1.42321 9.8
+pair_coeff  8 10    lj/cut/coul/long    0.00394145 3.00621 9.8
+pair_coeff  9 9     lj/cut/coul/long   0 0 9.8
+pair_coeff  9 10    lj/cut/coul/long    0 0 9.8
+pair_coeff  10 10   lj/cut/coul/long   0.15535 3.166 9.8
+
+neigh_modify    one 5000
+
+timestep        1.0                             # fs
+
+group           trimer type 1 2 3 4 5 6 7 8
+group           water  type 9 10
+
+group           c13 id 13:7195:114
+group           n16 id 16:7198:114
+group           n17 id 17:7199:114
+group           c18 id 18:7200:114
+
+group           c86 id 86:7268:114
+group           n89 id 89:7271:114
+group           n90 id 90:7272:114
+group           c91 id 91:7273:114
+
+group           c51 id 51:7233:114
+group           n54 id 54:7236:114
+group           n55 id 55:7237:114
+group           c56 id 56:7238:114
+
+#group           pre_azo1 union c13 n16 n17 c18
+#group           pre_azo2 union c86 n89 n90 c91
+#group           pre_azo3 union c51 n54 n55 c56
+group           pre_azo union c13 n16 n17 c18 c86 n89 n90 c91 c51 n54 n55 c56
+
+#group           azo1 intersect pre_azo1 trimer
+#group           azo2 intersect pre_azo2 trimer
+#group           azo3 intersect pre_azo3 trimer
+group           azo intersect pre_azo trimer
+
+#compute         az_phi azo dihedral/local phi
+#compute         az_typ azo property/local dtype
+#compute         az_ids azo property/local datom1 datom2 datom3 datom4
+#dump            az azo1 local 1 azodih_raw.txt c_az_typ c_az_phi c_az_ids[*]
+#dump_modify     az sort 3
+
+compute hb all pair hbond/dreiding/lj
+
+variable n_hbond equal c_hb[1] #number hbond
+variable E_hbond equal c_hb[2] #hbond energy
+
+
+#dump            1 all dcd 500 all_tc.dcd           # output dcd-film with unwrapped coords
+#dump_modify     1 unwrap yes
+
+dump            2 trimer dcd 250 DCDOUTTC          # output dcd-film with unwrapped coords
+dump_modify     2 unwrap yes
+
+fix             1 all shake 0.0001 20 0 b 2 7 11 12 a 17
+
+#fix             2 all nvt temp 300.0 300.0 100.0
+fix             2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
+
+thermo          100
+thermo_style custom step temp press density etotal epair v_n_hbond v_E_hbond
+
+#run             1000000
+run             TCSTEPS
+write_data      OUTNAMETC  # pair ij
+#shell           cp OUTFILE ../NEXTFOLDER
+
+#shell           tail -1 size_raw.txt >> size.txt
+#shell           tail -1 rg_raw.txt >> rg.txt
+#shell           rm size_raw.txt rg_raw.txt
+
+shell           sh dihedrals_eq1.sh OUTNAMETC #  ### do replacement for trans->cis switch directly at the beginning
+
+### NOW SWTICH BACK TO EQUILIBRIUM POTENTIALS
+### MAKE CHANGE BACK AND READ IN CONFORMATION AGAIN
+
+clear
+
+## RELAX SYSTEM FOR EQ1STEPS STEPS
+
+units           real
+dimension       3
+atom_style      full
+boundary        p p p                           # periodic box
+kspace_style    pppm 1.0e-4
+
+special_bonds     lj/coul 0.0 0.0 1.0 dihedral yes              # identical to special_bonds dreiding
+
+pair_style         hybrid/overlay hbond/dreiding/lj 4 9.5 11.5 90 lj/cut/coul/long 9.8 9.8
+
+bond_style        harmonic
+angle_style       harmonic
+dihedral_style    harmonic
+improper_style    umbrella
+
+read_data       INNAMEEQ1
+
+reset_timestep  0
+
+pair_coeff   3 4  hbond/dreiding/lj 8 j 7.0 2.75 4 9.0 11.0 90
+
+pair_coeff  1 1     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 2     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 3     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  1 4     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  1 5     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  1 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  1 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  1 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  1 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  2 2     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  2 3     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  2 4     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  2 5     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  2 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  2 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  2 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  2 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  2 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  3 3     lj/cut/coul/long   0.0957 3.03315 9.8
+pair_coeff  3 4     lj/cut/coul/long   0.086065 3.14786 9.8
+pair_coeff  3 5     lj/cut/coul/long   0.086065 3.14786 9.8
+pair_coeff  3 6     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  3 7     lj/cut/coul/long   0.0381397 2.93979 9.8
+pair_coeff  3 8     lj/cut/coul/long   0.00309354 2.93979 9.8
+pair_coeff  3 9     lj/cut/coul/long   0 1.51658 9.8
+pair_coeff  3 10    lj/cut/coul/long    0.12193 3.09958 9.8
+pair_coeff  4 4     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  4 5     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  4 6     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  4 7     lj/cut/coul/long   0.0342999 3.05449 9.8
+pair_coeff  4 8     lj/cut/coul/long   0.00278209 3.05449 9.8
+pair_coeff  4 9     lj/cut/coul/long   0 1.63128 9.8
+pair_coeff  4 10    lj/cut/coul/long    0.109654 3.21428 9.8
+pair_coeff  5 5     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  5 6     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  5 7     lj/cut/coul/long   0.0342999 3.05449 9.8
+pair_coeff  5 8     lj/cut/coul/long   0.00278209 3.05449 9.8
+pair_coeff  5 9     lj/cut/coul/long   0 1.63128 9.8
+pair_coeff  5 10    lj/cut/coul/long    0.109654 3.21428 9.8
+pair_coeff  6 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  6 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  6 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  6 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  6 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  7 7     lj/cut/coul/long   0.0152 2.84642 9.8
+pair_coeff  7 8     lj/cut/coul/long   0.00123288 2.84642 9.8
+pair_coeff  7 9     lj/cut/coul/long   0 1.42321 9.8
+pair_coeff  7 10    lj/cut/coul/long    0.0485934 3.00621 9.8
+pair_coeff  8 8     lj/cut/coul/long   0.0001 2.84642 9.8
+pair_coeff  8 9     lj/cut/coul/long   0 1.42321 9.8
+pair_coeff  8 10    lj/cut/coul/long    0.00394145 3.00621 9.8
+pair_coeff  9 9     lj/cut/coul/long   0 0 9.8
+pair_coeff  9 10    lj/cut/coul/long    0 0 9.8
+pair_coeff  10 10   lj/cut/coul/long   0.15535 3.166 9.8
+
+neigh_modify    one 5000
+
+timestep        1.0                             # fs
+
+group           trimer type 1 2 3 4 5 6 7 8
+group           water  type 9 10
+
+group           c13 id 13:7195:114
+group           n16 id 16:7198:114
+group           n17 id 17:7199:114
+group           c18 id 18:7200:114
+
+group           c86 id 86:7268:114
+group           n89 id 89:7271:114
+group           n90 id 90:7272:114
+group           c91 id 91:7273:114
+
+group           c51 id 51:7233:114
+group           n54 id 54:7236:114
+group           n55 id 55:7237:114
+group           c56 id 56:7238:114
+
+#group           pre_azo1 union c13 n16 n17 c18
+#group           pre_azo2 union c86 n89 n90 c91
+#group           pre_azo3 union c51 n54 n55 c56
+group           pre_azo union c13 n16 n17 c18 c86 n89 n90 c91 c51 n54 n55 c56
+
+#group           azo1 intersect pre_azo1 trimer
+#group           azo2 intersect pre_azo2 trimer
+#group           azo3 intersect pre_azo3 trimer
+group           azo intersect pre_azo trimer
+
+#compute         az_phi azo dihedral/local phi
+#compute         az_typ azo property/local dtype
+#compute         az_ids azo property/local datom1 datom2 datom3 datom4
+#dump            az azo1 local 1 azodih_raw.txt c_az_typ c_az_phi c_az_ids[*]
+#dump_modify     az sort 3
+
+compute hb all pair hbond/dreiding/lj
+
+variable n_hbond equal c_hb[1] #number hbond
+variable E_hbond equal c_hb[2] #hbond energy
+
+
+#dump            1 all dcd 500 all_eq1.dcd           # output dcd-film with unwrapped coords
+#dump_modify     1 unwrap yes
+
+dump            2 trimer dcd 250 DCDOUTEQ1           # output dcd-film with unwrapped coords
+dump_modify     2 unwrap yes
+
+fix             1 all shake 0.0001 20 0 b 2 7 11 12 a 17
+
+#fix             2 all nvt temp 300.0 300.0 100.0
+fix             2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
+
+thermo          100
+thermo_style custom step temp press density etotal epair v_n_hbond v_E_hbond
+
+#run             1000000
+run             EQ1STEPS
+write_data      OUTNAMEEQ1
+
+shell           sh dihedrals_ct.sh OUTNAMEEQ1 # do replacement towards cis->trans (back-switching!)
+
+### NOW MAKE REPLACEMENT FOR CIS-TRANS BACKSWITCH
+#### MAKE CHANGE BACK AND READ IN CONFORMATION AGAIN
+
+clear
+
+### READ IN FILE AFTER CT SWITCH
+
+
+units           real
+dimension       3
+atom_style      full
+boundary        p p p                           # periodic box
+kspace_style    pppm 1.0e-4
+
+special_bonds     lj/coul 0.0 0.0 1.0 dihedral yes              # identical to special_bonds dreiding
+
+pair_style         hybrid/overlay hbond/dreiding/lj 4 9.5 11.5 90 lj/cut/coul/long 9.8 9.8
+
+bond_style        harmonic
+angle_style       harmonic
+dihedral_style    harmonic
+improper_style    umbrella
+
+read_data       INNAMECT
+
+reset_timestep  0
+
+pair_coeff   3 4  hbond/dreiding/lj 8 j 7.0 2.75 4 9.0 11.0 90
+
+pair_coeff  1 1     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 2     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 3     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  1 4     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  1 5     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  1 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  1 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  1 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  1 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  2 2     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  2 3     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  2 4     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  2 5     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  2 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  2 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  2 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  2 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  2 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  3 3     lj/cut/coul/long   0.0957 3.03315 9.8
+pair_coeff  3 4     lj/cut/coul/long   0.086065 3.14786 9.8
+pair_coeff  3 5     lj/cut/coul/long   0.086065 3.14786 9.8
+pair_coeff  3 6     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  3 7     lj/cut/coul/long   0.0381397 2.93979 9.8
+pair_coeff  3 8     lj/cut/coul/long   0.00309354 2.93979 9.8
+pair_coeff  3 9     lj/cut/coul/long   0 1.51658 9.8
+pair_coeff  3 10    lj/cut/coul/long    0.12193 3.09958 9.8
+pair_coeff  4 4     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  4 5     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  4 6     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  4 7     lj/cut/coul/long   0.0342999 3.05449 9.8
+pair_coeff  4 8     lj/cut/coul/long   0.00278209 3.05449 9.8
+pair_coeff  4 9     lj/cut/coul/long   0 1.63128 9.8
+pair_coeff  4 10    lj/cut/coul/long    0.109654 3.21428 9.8
+pair_coeff  5 5     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  5 6     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  5 7     lj/cut/coul/long   0.0342999 3.05449 9.8
+pair_coeff  5 8     lj/cut/coul/long   0.00278209 3.05449 9.8
+pair_coeff  5 9     lj/cut/coul/long   0 1.63128 9.8
+pair_coeff  5 10    lj/cut/coul/long    0.109654 3.21428 9.8
+pair_coeff  6 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  6 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  6 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  6 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  6 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  7 7     lj/cut/coul/long   0.0152 2.84642 9.8
+pair_coeff  7 8     lj/cut/coul/long   0.00123288 2.84642 9.8
+pair_coeff  7 9     lj/cut/coul/long   0 1.42321 9.8
+pair_coeff  7 10    lj/cut/coul/long    0.0485934 3.00621 9.8
+pair_coeff  8 8     lj/cut/coul/long   0.0001 2.84642 9.8
+pair_coeff  8 9     lj/cut/coul/long   0 1.42321 9.8
+pair_coeff  8 10    lj/cut/coul/long    0.00394145 3.00621 9.8
+pair_coeff  9 9     lj/cut/coul/long   0 0 9.8
+pair_coeff  9 10    lj/cut/coul/long    0 0 9.8
+pair_coeff  10 10   lj/cut/coul/long   0.15535 3.166 9.8
+
+neigh_modify    one 5000
+
+timestep        1.0                             # fs
+
+group           trimer type 1 2 3 4 5 6 7 8
+group           water  type 9 10
+
+group           c13 id 13:7195:114
+group           n16 id 16:7198:114
+group           n17 id 17:7199:114
+group           c18 id 18:7200:114
+
+group           c86 id 86:7268:114
+group           n89 id 89:7271:114
+group           n90 id 90:7272:114
+group           c91 id 91:7273:114
+
+group           c51 id 51:7233:114
+group           n54 id 54:7236:114
+group           n55 id 55:7237:114
+group           c56 id 56:7238:114
+
+#group           pre_azo1 union c13 n16 n17 c18
+#group           pre_azo2 union c86 n89 n90 c91
+#group           pre_azo3 union c51 n54 n55 c56
+group           pre_azo union c13 n16 n17 c18 c86 n89 n90 c91 c51 n54 n55 c56
+
+#group           azo1 intersect pre_azo1 trimer
+#group           azo2 intersect pre_azo2 trimer
+#group           azo3 intersect pre_azo3 trimer
+group           azo intersect pre_azo trimer
+
+#compute         az_phi azo dihedral/local phi
+#compute         az_typ azo property/local dtype
+#compute         az_ids azo property/local datom1 datom2 datom3 datom4
+#dump            az azo1 local 1 azodih_raw.txt c_az_typ c_az_phi c_az_ids[*]
+#dump_modify     az sort 3
+
+compute hb all pair hbond/dreiding/lj
+
+variable n_hbond equal c_hb[1] #number hbond
+variable E_hbond equal c_hb[2] #hbond energy
+
+
+#dump            1 all dcd 500 all_ct.dcd           # output dcd-film with unwrapped coords
+#dump_modify     1 unwrap yes
+
+dump            2 trimer dcd 250 DCDOUTCT           # output dcd-film with unwrapped coords
+dump_modify     2 unwrap yes
+
+fix             1 all shake 0.0001 20 0 b 2 7 11 12 a 17
+
+#fix             2 all nvt temp 300.0 300.0 100.0
+fix             2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
+
+thermo          100
+thermo_style custom step temp press density etotal epair v_n_hbond v_E_hbond
+
+#run             1000000
+run             CTSTEPS
+write_data      OUTNAMECT
+
+shell           sh dihedrals_eq2.sh OUTNAMECT
+
+
+clear
+
+# RELAX SYSTEM FOR EQ2STEPS STEPS
+
+
+units           real
+dimension       3
+atom_style      full
+boundary        p p p                           # periodic box
+kspace_style    pppm 1.0e-4
+
+special_bonds     lj/coul 0.0 0.0 1.0 dihedral yes              # identical to special_bonds dreiding
+
+pair_style         hybrid/overlay hbond/dreiding/lj 4 9.5 11.5 90 lj/cut/coul/long 9.8 9.8
+
+bond_style        harmonic
+angle_style       harmonic
+dihedral_style    harmonic
+improper_style    umbrella
+
+read_data       INNAMEEQ2
+
+reset_timestep  0
+
+pair_coeff   3 4  hbond/dreiding/lj 8 j 7.0 2.75 4 9.0 11.0 90
+
+pair_coeff  1 1     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 2     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 3     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  1 4     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  1 5     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  1 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  1 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  1 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  1 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  1 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  2 2     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  2 3     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  2 4     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  2 5     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  2 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  2 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  2 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  2 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  2 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  3 3     lj/cut/coul/long   0.0957 3.03315 9.8
+pair_coeff  3 4     lj/cut/coul/long   0.086065 3.14786 9.8
+pair_coeff  3 5     lj/cut/coul/long   0.086065 3.14786 9.8
+pair_coeff  3 6     lj/cut/coul/long   0.0953995 3.25307 9.8
+pair_coeff  3 7     lj/cut/coul/long   0.0381397 2.93979 9.8
+pair_coeff  3 8     lj/cut/coul/long   0.00309354 2.93979 9.8
+pair_coeff  3 9     lj/cut/coul/long   0 1.51658 9.8
+pair_coeff  3 10    lj/cut/coul/long    0.12193 3.09958 9.8
+pair_coeff  4 4     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  4 5     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  4 6     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  4 7     lj/cut/coul/long   0.0342999 3.05449 9.8
+pair_coeff  4 8     lj/cut/coul/long   0.00278209 3.05449 9.8
+pair_coeff  4 9     lj/cut/coul/long   0 1.63128 9.8
+pair_coeff  4 10    lj/cut/coul/long    0.109654 3.21428 9.8
+pair_coeff  5 5     lj/cut/coul/long   0.0774 3.26256 9.8
+pair_coeff  5 6     lj/cut/coul/long   0.0857948 3.36777 9.8
+pair_coeff  5 7     lj/cut/coul/long   0.0342999 3.05449 9.8
+pair_coeff  5 8     lj/cut/coul/long   0.00278209 3.05449 9.8
+pair_coeff  5 9     lj/cut/coul/long   0 1.63128 9.8
+pair_coeff  5 10    lj/cut/coul/long    0.109654 3.21428 9.8
+pair_coeff  6 6     lj/cut/coul/long   0.0951 3.47299 9.8
+pair_coeff  6 7     lj/cut/coul/long   0.03802 3.15971 9.8
+pair_coeff  6 8     lj/cut/coul/long   0.00308383 3.15971 9.8
+pair_coeff  6 9     lj/cut/coul/long   0 1.73649 9.8
+pair_coeff  6 10    lj/cut/coul/long    0.121547 3.31949 9.8
+pair_coeff  7 7     lj/cut/coul/long   0.0152 2.84642 9.8
+pair_coeff  7 8     lj/cut/coul/long   0.00123288 2.84642 9.8
+pair_coeff  7 9     lj/cut/coul/long   0 1.42321 9.8
+pair_coeff  7 10    lj/cut/coul/long    0.0485934 3.00621 9.8
+pair_coeff  8 8     lj/cut/coul/long   0.0001 2.84642 9.8
+pair_coeff  8 9     lj/cut/coul/long   0 1.42321 9.8
+pair_coeff  8 10    lj/cut/coul/long    0.00394145 3.00621 9.8
+pair_coeff  9 9     lj/cut/coul/long   0 0 9.8
+pair_coeff  9 10    lj/cut/coul/long    0 0 9.8
+pair_coeff  10 10   lj/cut/coul/long   0.15535 3.166 9.8
+
+neigh_modify    one 5000
+
+timestep        1.0                             # fs
+
+group           trimer type 1 2 3 4 5 6 7 8
+group           water  type 9 10
+
+group           c13 id 13:7195:114
+group           n16 id 16:7198:114
+group           n17 id 17:7199:114
+group           c18 id 18:7200:114
+
+group           c86 id 86:7268:114
+group           n89 id 89:7271:114
+group           n90 id 90:7272:114
+group           c91 id 91:7273:114
+
+group           c51 id 51:7233:114
+group           n54 id 54:7236:114
+group           n55 id 55:7237:114
+group           c56 id 56:7238:114
+
+#group           pre_azo1 union c13 n16 n17 c18
+#group           pre_azo2 union c86 n89 n90 c91
+#group           pre_azo3 union c51 n54 n55 c56
+group           pre_azo union c13 n16 n17 c18 c86 n89 n90 c91 c51 n54 n55 c56
+
+#group           azo1 intersect pre_azo1 trimer
+#group           azo2 intersect pre_azo2 trimer
+#group           azo3 intersect pre_azo3 trimer
+group           azo intersect pre_azo trimer
+
+#compute         az_phi azo dihedral/local phi
+#compute         az_typ azo property/local dtype
+#compute         az_ids azo property/local datom1 datom2 datom3 datom4
+#dump            az azo1 local 1 azodih_raw.txt c_az_typ c_az_phi c_az_ids[*]
+#dump_modify     az sort 3
+
+compute hb all pair hbond/dreiding/lj
+
+variable n_hbond equal c_hb[1] #number hbond
+variable E_hbond equal c_hb[2] #hbond energy
+
+
+#dump            1 all dcd 500 all_eq2.dcd           # output dcd-film with unwrapped coords
+#dump_modify     1 unwrap yes
+
+dump            2 trimer dcd 250 DCDOUTEQ2           # output dcd-film with unwrapped coords
+dump_modify     2 unwrap yes
+
+fix             1 all shake 0.0001 20 0 b 2 7 11 12 a 17
+
+#fix             2 all nvt temp 300.0 300.0 100.0
+fix             2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
+
+thermo          100
+thermo_style custom step temp press density etotal epair v_n_hbond v_E_hbond
+
+#run             1000000
+run             EQ2STEPS
+write_data      OUTNAMEEQ2
+
+shell           sh dihedrals_final.sh OUTNAMEEQ2
+
+
+next            m
+jump            in.loop loop2
+###########END OF LOOP
+
+shell           cp OUTNAMEEQ2 ../NEXTFOLDER
+shell	 	cp azid_trans.txt azid_cis.txt ../NEXTFOLDER

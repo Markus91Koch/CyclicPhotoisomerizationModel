@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH -J NAME
+####SBATCH -p sandy
+####SBATCH -p gpu-cpu
+#SBATCH -A p_mdpolymer
+#SBATCH --time=0-7:59:00
+#SBATCH --output=m-%j.out
+#SBATCH --error=m-%j.err
+#SBATCH --nodes=4
+#SBATCH --ntasks=96
+#SBATCH --ntasks-per-core=1 #no HyperThreading
+#SBATCH --ntasks-per-node=24
+module load modenv/both
+module load modenv/classic
+module unload intel/2015.3.187
+module load intel/2017.2.174
+module load intelmpi/2017.2.174
+module load python/2.7.5-scipy
+#srun /scratch/s4688360/2017lammps/lammps-31Mar17_edited/lammps-31Mar17_softpot2_chicken/src/lmp_taurus < in.lc > lc.log
+#srun /scratch/s4688360/2017lammps/lammps-31Mar17_edited/lammps-31Mar17_softpot2_chicken_ellipsoid3_taurus6_EDIT/src/lmp_taurus < in.del_water > lc.log
+#srun /scratch/s4688360/2017lammps/lammps-31Mar17_edited/lammps-31Mar17_softpot2_chicken_ellipsoid3_taurus6_NEMATIC/src/lmp_taurus < in.npt > npt.log
+srun /lustre/scratch2/ws/0/s4688360-lammps/2017lammps/lammps-31Mar17_edited/lammps-31Mar17_softpot2_chicken_ellipsoid3_taurus6_NEMATIC/src/lmp_taurus < in.loop > loop.log
