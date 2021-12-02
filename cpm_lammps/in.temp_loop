@@ -103,20 +103,14 @@ group           n54 id 54:7236:114
 group           n55 id 55:7237:114
 group           c56 id 56:7238:114
 
-#group           pre_azo1 union c13 n16 n17 c18
-#group           pre_azo2 union c86 n89 n90 c91
-#group           pre_azo3 union c51 n54 n55 c56
 group           pre_azo union c13 n16 n17 c18 c86 n89 n90 c91 c51 n54 n55 c56
 
-#group           azo1 intersect pre_azo1 trimer
-#group           azo2 intersect pre_azo2 trimer
-#group           azo3 intersect pre_azo3 trimer
 group           azo intersect pre_azo trimer
 
 compute         az_phi azo dihedral/local phi
 compute         az_typ azo property/local dtype
 compute         az_ids azo property/local datom1 datom2 datom3 datom4
-#dump            az azo1 local 1 azo.txt c_az_phi c_az_typ c_az_ids[*]
+
 dump            az azo local 1 azodih_raw.txt c_az_typ c_az_phi c_az_ids[*]
 dump_modify     az sort 3 
 
@@ -125,15 +119,8 @@ compute hb all pair hbond/dreiding/lj
 variable n_hbond equal c_hb[1] #number hbond
 variable E_hbond equal c_hb[2] #hbond energy
 
-#dump            1 all dcd 500 all.dcd           # output dcd-film with unwrapped coords
-#dump_modify     1 unwrap yes
-
-#dump            2 trimer dcd 250 trimer.dcd           # output dcd-film with unwrapped coords
-#dump_modify     2 unwrap yes
-
 fix             1 all shake 0.0001 20 0 b 2 7 11 12 a 17
 
-#fix             2 all nvt temp 300.0 300.0 100.0
 fix             2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
 
 thermo 		1000
@@ -141,16 +128,14 @@ thermo_style custom step temp press density etotal epair v_n_hbond v_E_hbond
 
 run             0
 
-#shell           tail -1 size_raw.txt >> size.txt
-#shell           tail -1 rg_raw.txt >> rg.txt
-#shell           rm size_raw.txt rg_raw.txt
-
 shell           sh extract_azo.sh
 undump          az #dddpairs
 
 ## do replacement for trans->cis switch directly at the beginning
 shell           sh dihedrals_tc.sh FILENAME
 
+####################################################################
+####################################################################
 clear
 
 ## PERFORM TRANS TO CIS SWITCHING RUN
@@ -254,56 +239,35 @@ group           n54 id 54:7236:114
 group           n55 id 55:7237:114
 group           c56 id 56:7238:114
 
-#group           pre_azo1 union c13 n16 n17 c18
-#group           pre_azo2 union c86 n89 n90 c91
-#group           pre_azo3 union c51 n54 n55 c56
 group           pre_azo union c13 n16 n17 c18 c86 n89 n90 c91 c51 n54 n55 c56
 
-#group           azo1 intersect pre_azo1 trimer
-#group           azo2 intersect pre_azo2 trimer
-#group           azo3 intersect pre_azo3 trimer
 group           azo intersect pre_azo trimer
-
-#compute         az_phi azo dihedral/local phi
-#compute         az_typ azo property/local dtype
-#compute         az_ids azo property/local datom1 datom2 datom3 datom4
-#dump            az azo1 local 1 azodih_raw.txt c_az_typ c_az_phi c_az_ids[*]
-#dump_modify     az sort 3
 
 compute hb all pair hbond/dreiding/lj
 
 variable n_hbond equal c_hb[1] #number hbond
 variable E_hbond equal c_hb[2] #hbond energy
 
-
-#dump            1 all dcd 500 all_tc.dcd           # output dcd-film with unwrapped coords
-#dump_modify     1 unwrap yes
-
 dump            2 trimer dcd 250 DCDOUTTC          # output dcd-film with unwrapped coords
 dump_modify     2 unwrap yes
 
 fix             1 all shake 0.0001 20 0 b 2 7 11 12 a 17
 
-#fix             2 all nvt temp 300.0 300.0 100.0
 fix             2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
 
 thermo          100
 thermo_style custom step temp press density etotal epair v_n_hbond v_E_hbond
 
-#run             1000000
 run             TCSTEPS
 write_data      OUTNAMETC  # pair ij
-#shell           cp OUTFILE ../NEXTFOLDER
-
-#shell           tail -1 size_raw.txt >> size.txt
-#shell           tail -1 rg_raw.txt >> rg.txt
-#shell           rm size_raw.txt rg_raw.txt
 
 shell           sh dihedrals_eq1.sh OUTNAMETC #  ### do replacement for trans->cis switch directly at the beginning
 
 ### NOW SWTICH BACK TO EQUILIBRIUM POTENTIALS
 ### MAKE CHANGE BACK AND READ IN CONFORMATION AGAIN
 
+####################################################################
+####################################################################
 clear
 
 ## RELAX SYSTEM FOR EQ1STEPS STEPS
@@ -407,43 +371,25 @@ group           n54 id 54:7236:114
 group           n55 id 55:7237:114
 group           c56 id 56:7238:114
 
-#group           pre_azo1 union c13 n16 n17 c18
-#group           pre_azo2 union c86 n89 n90 c91
-#group           pre_azo3 union c51 n54 n55 c56
 group           pre_azo union c13 n16 n17 c18 c86 n89 n90 c91 c51 n54 n55 c56
 
-#group           azo1 intersect pre_azo1 trimer
-#group           azo2 intersect pre_azo2 trimer
-#group           azo3 intersect pre_azo3 trimer
 group           azo intersect pre_azo trimer
-
-#compute         az_phi azo dihedral/local phi
-#compute         az_typ azo property/local dtype
-#compute         az_ids azo property/local datom1 datom2 datom3 datom4
-#dump            az azo1 local 1 azodih_raw.txt c_az_typ c_az_phi c_az_ids[*]
-#dump_modify     az sort 3
 
 compute hb all pair hbond/dreiding/lj
 
 variable n_hbond equal c_hb[1] #number hbond
 variable E_hbond equal c_hb[2] #hbond energy
 
-
-#dump            1 all dcd 500 all_eq1.dcd           # output dcd-film with unwrapped coords
-#dump_modify     1 unwrap yes
-
 dump            2 trimer dcd 250 DCDOUTEQ1           # output dcd-film with unwrapped coords
 dump_modify     2 unwrap yes
 
 fix             1 all shake 0.0001 20 0 b 2 7 11 12 a 17
 
-#fix             2 all nvt temp 300.0 300.0 100.0
 fix             2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
 
 thermo          100
 thermo_style custom step temp press density etotal epair v_n_hbond v_E_hbond
 
-#run             1000000
 run             EQ1STEPS
 write_data      OUTNAMEEQ1
 
@@ -452,6 +398,8 @@ shell           sh dihedrals_ct.sh OUTNAMEEQ1 # do replacement towards cis->tran
 ### NOW MAKE REPLACEMENT FOR CIS-TRANS BACKSWITCH
 #### MAKE CHANGE BACK AND READ IN CONFORMATION AGAIN
 
+####################################################################
+####################################################################
 clear
 
 ### READ IN FILE AFTER CT SWITCH
@@ -556,21 +504,9 @@ group           n54 id 54:7236:114
 group           n55 id 55:7237:114
 group           c56 id 56:7238:114
 
-#group           pre_azo1 union c13 n16 n17 c18
-#group           pre_azo2 union c86 n89 n90 c91
-#group           pre_azo3 union c51 n54 n55 c56
 group           pre_azo union c13 n16 n17 c18 c86 n89 n90 c91 c51 n54 n55 c56
 
-#group           azo1 intersect pre_azo1 trimer
-#group           azo2 intersect pre_azo2 trimer
-#group           azo3 intersect pre_azo3 trimer
 group           azo intersect pre_azo trimer
-
-#compute         az_phi azo dihedral/local phi
-#compute         az_typ azo property/local dtype
-#compute         az_ids azo property/local datom1 datom2 datom3 datom4
-#dump            az azo1 local 1 azodih_raw.txt c_az_typ c_az_phi c_az_ids[*]
-#dump_modify     az sort 3
 
 compute hb all pair hbond/dreiding/lj
 
@@ -578,27 +514,23 @@ variable n_hbond equal c_hb[1] #number hbond
 variable E_hbond equal c_hb[2] #hbond energy
 
 
-#dump            1 all dcd 500 all_ct.dcd           # output dcd-film with unwrapped coords
-#dump_modify     1 unwrap yes
-
 dump            2 trimer dcd 250 DCDOUTCT           # output dcd-film with unwrapped coords
 dump_modify     2 unwrap yes
 
 fix             1 all shake 0.0001 20 0 b 2 7 11 12 a 17
 
-#fix             2 all nvt temp 300.0 300.0 100.0
 fix             2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
 
 thermo          100
 thermo_style custom step temp press density etotal epair v_n_hbond v_E_hbond
 
-#run             1000000
 run             CTSTEPS
 write_data      OUTNAMECT
 
 shell           sh dihedrals_eq2.sh OUTNAMECT
 
-
+####################################################################
+####################################################################
 clear
 
 # RELAX SYSTEM FOR EQ2STEPS STEPS
@@ -703,51 +635,33 @@ group           n54 id 54:7236:114
 group           n55 id 55:7237:114
 group           c56 id 56:7238:114
 
-#group           pre_azo1 union c13 n16 n17 c18
-#group           pre_azo2 union c86 n89 n90 c91
-#group           pre_azo3 union c51 n54 n55 c56
 group           pre_azo union c13 n16 n17 c18 c86 n89 n90 c91 c51 n54 n55 c56
 
-#group           azo1 intersect pre_azo1 trimer
-#group           azo2 intersect pre_azo2 trimer
-#group           azo3 intersect pre_azo3 trimer
 group           azo intersect pre_azo trimer
-
-#compute         az_phi azo dihedral/local phi
-#compute         az_typ azo property/local dtype
-#compute         az_ids azo property/local datom1 datom2 datom3 datom4
-#dump            az azo1 local 1 azodih_raw.txt c_az_typ c_az_phi c_az_ids[*]
-#dump_modify     az sort 3
 
 compute hb all pair hbond/dreiding/lj
 
 variable n_hbond equal c_hb[1] #number hbond
 variable E_hbond equal c_hb[2] #hbond energy
 
-
-#dump            1 all dcd 500 all_eq2.dcd           # output dcd-film with unwrapped coords
-#dump_modify     1 unwrap yes
-
 dump            2 trimer dcd 250 DCDOUTEQ2           # output dcd-film with unwrapped coords
 dump_modify     2 unwrap yes
 
 fix             1 all shake 0.0001 20 0 b 2 7 11 12 a 17
 
-#fix             2 all nvt temp 300.0 300.0 100.0
 fix             2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0
 
 thermo          100
 thermo_style custom step temp press density etotal epair v_n_hbond v_E_hbond
 
-#run             1000000
 run             EQ2STEPS
 write_data      OUTNAMEEQ2
 
 shell           sh dihedrals_final.sh OUTNAMEEQ2
 
-
 next            m
 jump            in.loop loop2
+
 ###########END OF LOOP
 
 shell           cp OUTNAMEEQ2 ../NEXTFOLDER

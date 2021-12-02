@@ -1,26 +1,14 @@
 #!/bin/sh
 # This script continues a chain of slurm jobs.
+# All the settings remain the same as in the old job.
+# Only the jobs are reinserted into the queue.
 # To continue a chain of N jobs, call the script as follows:
 # sh chainjobs.sh
 
-
-#tcsteps=750  #150 #1500
-#ctsteps=750  #150 #1500
-#eq1steps=5000  #300 #15000
-#eq2steps=10000  #300 #30000
-
-#extension="${3##*.}"
-#filename="${3%.*}"
-#testing="${3##*_}"
-#testing2="${3%_*}"
-#endingonly="${testing##*.}"
-#numberonly="${testing%.*}"
-#loopnumber=$2
-
 DEPENDENCY=""
 JOB_FILE="slurm.loop"
-DELETE_OLD=0	#should old folders be deleted first?
 
+# adjust the maximum number of jobs (125 here) to your needs
 for i in `seq 1 125`;
         do
 		j=$((i-1))

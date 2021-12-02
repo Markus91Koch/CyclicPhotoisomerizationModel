@@ -24,4 +24,3 @@ tail -n+$((dend-1)) $1  > footer.txt
 # now recompile lammps file by attaching together the split up parts
 # header + new_dihedral_list + footer
 cat header.txt recomb_dh_eq2.txt footer.txt > "$eq2name"  ## or is dh.txt enough? ?????
-#cat header.txt dh.txt footer.txt > "$eq2name"

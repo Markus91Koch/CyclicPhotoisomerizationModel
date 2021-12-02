@@ -44,11 +44,10 @@ tail -n+$((dstart+2)) $1 | head -$((dend-dstart-3)) > dh.txt
 # create two files: 1st file with only dihedrals of type 19, 25, 26
 # 2nd file with all dihedrals that are not of type 19, 25, 26
 
-# SO: 1st a file withonly dihedrals of type 19, 25, 26
+# SO: 1st a file withonly dihedrals of type 19, 23, 24
 awk '$2 == "19" || $2 == "23" || $2 == "24" { print $0 }' dh.txt | sort -nk3 > azdh.txt
 
-# AAAND: a file with dihedrals that are not of type 19, 25, 26
-#awk '!/$2 == "19" || $2 == "25" || $2 == "26"/ { print $0 }' dh.txt | sort -nk3 > no_azdh.txt
+# AND: a file with dihedrals that are not of type 19, 23, 24
 awk '$2 != "19" && $2 != "23" && $2 != "24" { print $0 }' dh.txt | sort -nk3 > no_azdh.txt 
 
 python3 change_dihedrals.py  # create from azdh.txt new files azdh_ct.txt and azdh_tc.txt where switches will happen

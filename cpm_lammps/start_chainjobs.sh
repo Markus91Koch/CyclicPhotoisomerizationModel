@@ -23,11 +23,12 @@ if [ -z "$3" ]
 fi
 
 
+
+# adjust to the number of MD steps during each stage of the CPM loop
 tcsteps=1500
 ctsteps=1500
 eq1steps=15000
 eq2steps=30000
-
 
 
 extension="${3##*.}"
@@ -39,20 +40,6 @@ numberonly="${testing%.*}"
 loopnumber=$2
 
 
-#newnr=$((numberonly+1))
-#prevnr=$((numberonly-1))
-
-#echo $filename
-#echo $testing
-#echo $testing2
-#echo $endingonly
-#echo $loopnumber
-#nextnumber=$((loopnumber+1))
-
-#nextfilename="$filename"_"$nextnumber"."$endingonly"
-#echo $nextfilename
-
-
 DEPENDENCY=""
 JOB_FILE="slurm.loop"
 
@@ -60,7 +47,6 @@ for i in `seq 1 "$1"`;
         do
 		j=$((i-1))
 		k=$((i+1))
-		#echo "$j""$i"
 	
 		echo "ITERATION $i"
 		mkdir "$i"
@@ -71,7 +57,6 @@ for i in `seq 1 "$1"`;
 			cp "$3" "$i"
 		fi
 		
-
 		# delete "NEXTFOLDER" LINE IN LAST FOLDER
 		if [ "$i" -eq "$1" ]; then
 			sed -i '/NEXTFOLDER/d' "$i"/in.temp_loop
@@ -111,7 +96,5 @@ for i in `seq 1 "$1"`;
         	echo "Result: $OUT"
         	DEPENDENCY=`echo $OUT | awk '{print $4}'`
 
-
-
         	cd ..
-	done
+done

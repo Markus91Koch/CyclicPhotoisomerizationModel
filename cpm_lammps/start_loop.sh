@@ -85,8 +85,6 @@ sed -i s/OUTNAMEEQ2/"$outeq2"/g in.loop
 sed -i s/DCDOUTEQ2/"$dcdeq2"/g in.loop
 #sed -i s/DCDOUTEQ2/unwrap_1d.dcd/g in.loop
 
-
 #sed -i s/OUTNAMEFINAL/"$newname"/g in.loop
-
 
 #sbatch slurm.loop

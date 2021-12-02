@@ -6,6 +6,11 @@ import time
 start = time.time()
 
 
+# define probabilities p_tc and p_ct
+# for trans-to-cis and cis-to-trans switching per cycle
+p_tc = 0.0188 # trans to cis
+p_ct = 0.0012 # cis to trans
+
 #file_angles = 'ellipsoid.txt'
 file_dihedrals = 'azdh.txt'
 
@@ -65,9 +70,6 @@ except IOError:    #This means that the file does not exist (or some other IOErr
     azid_cis = np.zeros((NAZO,), dtype=np.int16)
 
 
-#azid_trans = np.ones((NAZO,), dtype=np.int16)
-#azid_cis = np.zeros((NAZO,), dtype=np.int16)
-
 tc_ids = np.zeros((NAZO,), dtype=np.int16)
 ct_ids = np.zeros((NAZO,), dtype=np.int16)
 
@@ -78,11 +80,9 @@ for ii, x in enumerate(dindex):
 
     # draw random number
     r = np.random.random_sample()
-    if (r < 0.0188 and azid_trans[ii] == 1):
+    if (r < p_tc and azid_trans[ii] == 1):
         switch.append(1)
         tc.append(23)
-        #ct.append(24)
-        #angles_switched.append(np.arccos(np.sqrt(x))*180.0/np.pi)
         
         azid_trans[ii] = 0
         azid_cis[ii] = 1
@@ -92,8 +92,6 @@ for ii, x in enumerate(dindex):
     else:
         switch.append(0)
         tc.append(19)
-        #ct.append(19)
-        #angles_nonswitched.append(np.arccos(np.sqrt(x))*180.0/np.pi)
 
 
 # DETERMINE SWITCHES FROM CIS TO TRANS
@@ -101,11 +99,9 @@ for ii, x in enumerate(dindex):
 
     # draw random number
     r = np.random.random_sample()
-    if (r < 0.0012 and azid_cis[ii] == 1):
+    if (r < p_ct and azid_cis[ii] == 1):
         switchback.append(1)
-        #tc.append(23)
         ct.append(24)
-        #angles_switched.append(np.arccos(np.sqrt(x))*180.0/np.pi)
 
         azid_trans[ii] = 1
         azid_cis[ii] = 0
@@ -114,27 +110,16 @@ for ii, x in enumerate(dindex):
 
     else:
         switchback.append(0)
-        #tc.append(19)
         ct.append(19)
-        #angles_nonswitched.append(np.arccos(np.sqrt(x))*180.0/np.pi)
 
 azdh_tc = list(zip(dindex, tc, d1, d2, d3, d4))
 azdh_ct = list(zip(dindex, ct, d1, d2, d3, d4))
-#azdh_tc = np.vstack((dindex, tc, d1, d2, d3, d4))
-#azdh_ct = np.vstack((dindex, ct, d1, d2, d3, d4))
-#print(list(azdh_tc))
-#exit()
 
 Nswitch=sum(switch)
 Nazos=len(switch)
 
 Nswitchback=sum(switchback)
 Nazos_=len(switchback)
-
-#switched_avg_angle=np.mean(angles_switched)
-#nonswitched_avg_angle=np.mean(angles_nonswitched)
-#switched_std_angle=np.std(angles_switched)
-#nonswitched_std_angle=np.std(angles_nonswitched)
 
 ### append this to respective files
  
@@ -161,12 +146,6 @@ with open("ct_ids.txt", "w") as myfile:
     for jj, item in enumerate(ct_ids):
         myfile.write("%s %s\n" % (jj, item))
 
-#with open("avg_angles.txt", "a") as myfile2:
-#    myfile2.write("%s %s %s %s\n" % (switched_avg_angle, switched_std_angle, nonswitched_avg_angle, nonswitched_std_angle))
-
-#print(azdh_tc)
-#print(list(azdh_tc))
-
 
 ftc = open('azdh_tc.txt', 'w')
 for item in azdh_tc:
@@ -180,4 +159,3 @@ fct.close()
 
 
 end = time.time()
-#print(end - start)
